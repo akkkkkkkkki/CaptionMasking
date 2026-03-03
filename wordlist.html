@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vocab Hunter</title>
+  <link rel="stylesheet" href="wordlist.css">
+</head>
+<body>
+  <div class="container">
+    <!-- Header -->
+    <header>
+      <div class="header-left">
+        <h1>Scripta - Vocab Hunter</h1>
+        <div class="stats">
+          <span id="total-count">0 words</span>
+          <span class="separator">·</span>
+          <span id="new-count">0 new</span>
+          <span class="separator">·</span>
+          <span id="mastered-count">0 mastered</span>
+        </div>
+      </div>
+      <div class="header-actions">
+        <button class="action-btn" id="import-common-btn" style="margin-right: 8px;">📚 Import Common Words</button>
+        <button class="icon-btn" id="settings-btn" title="Settings">⚙️</button>
+      </div>
+    </header>
+
+    <!-- Filters and Search -->
+    <div class="controls">
+      <div class="filters">
+        <button class="filter-btn active" data-filter="all">All</button>
+        <button class="filter-btn" data-filter="new">New</button>
+        <button class="filter-btn" data-filter="familiar">Learning</button>
+        <button class="filter-btn" data-filter="mastered">Mastered</button>
+        <button class="shuffle-btn" id="shuffle-btn" title="Shuffle / Sort">🔀</button>
+      </div>
+      <div class="search-box">
+        <input type="text" id="search-input" placeholder="Search words...">
+      </div>
+    </div>
+
+    <!-- Word List -->
+    <div class="word-list" id="word-list">
+      <!-- Words will be inserted here -->
+    </div>
+
+    <!-- Actions -->
+    <div class="actions">
+      <button class="action-btn" id="export-btn">💾 Export</button>
+      <button class="action-btn" id="import-btn">📥 Import</button>
+      <button class="action-btn danger" id="clear-btn">🗑️ Clear All</button>
+    </div>
+  </div>
+
+  <!-- Settings Modal -->
+  <div class="modal" id="settings-modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>Settings</h2>
+        <button class="close-btn" id="close-settings">×</button>
+      </div>
+      <div class="modal-body">
+        <div class="setting-group">
+          <label>Familiar threshold</label>
+          <div class="slider-container">
+            <input type="range" id="threshold-slider" min="1" max="10" value="3">
+            <span id="threshold-value">3</span> times
+          </div>
+        </div>
+        <div class="setting-group">
+          <label>Dictionary</label>
+          <div class="radio-group">
+            <label class="radio-label">
+              <input type="radio" name="dictionary" value="cambridge">
+              Cambridge
+            </label>
+            <label class="radio-label">
+              <input type="radio" name="dictionary" value="oxford" checked>
+              Oxford Learner's
+            </label>
+            <label class="radio-label">
+              <input type="radio" name="dictionary" value="merriam">
+              Merriam-Webster
+            </label>
+            <label class="radio-label">
+              <input type="radio" name="dictionary" value="youdao">
+              有道词典
+            </label>
+            <label class="radio-label">
+              <input type="radio" name="dictionary" value="google">
+              Google Translate
+            </label>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-primary" id="save-settings">Save</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Common Words Modal -->
+  <div class="modal" id="common-words-modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>Import Common Words</h2>
+        <button class="close-btn" id="close-common-words">×</button>
+      </div>
+      <div class="modal-body">
+        <p style="margin-bottom: 16px; color: #6c757d;">Select a word list to mark as already mastered:</p>
+        <div class="radio-group">
+          <label class="radio-label">
+            <input type="radio" name="common-list" value="1000" checked>
+            <strong>Top 1000</strong> - Most common English words
+          </label>
+          <label class="radio-label">
+            <input type="radio" name="common-list" value="3000">
+            <strong>Top 3000</strong> - High school level
+          </label>
+          <label class="radio-label">
+            <input type="radio" name="common-list" value="5000">
+            <strong>Top 5000</strong> - College level
+          </label>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-primary" id="import-common-words">Import</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="wordlist.js"></script>
+</body>
+</html>
