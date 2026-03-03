@@ -1,8 +1,8 @@
 {
     "manifest_version": 3,
     "name": "Vocab Hunter Simple",
-    "version": "15.0",
-    "permissions": ["activeTab", "scripting", "storage"],
+    "version": "16.0",
+    "permissions": ["activeTab", "scripting"],
     "host_permissions": ["https://*.youtube.com/*"],
     "action": { "default_popup": "popup.html" },
     "content_scripts": [

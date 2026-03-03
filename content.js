@@ -14,42 +14,11 @@ window.addEventListener('message', (event) => {
   }
 });
 
-// 页面加载时同步拦截器状态到 popup
-window.addEventListener('message', (event) => {
-  if (event.source === window && event.data.type === 'INTERCEPTOR_INIT') {
-    chrome.storage.local.set({ interceptorEnabled: event.data.enabled });
-  }
-});
-
 // 响应插件命令
 chrome.runtime.onMessage.addListener((request, _sender, sendResponse) => {
   console.log("📨 [收到命令]", request.action);
 
-  if (request.action === "GET_INTERCEPTOR_STATUS") {
-    // 请求主世界返回当前状态
-    window.postMessage({ type: 'GET_INTERCEPTOR_STATUS' }, '*');
-    const handler = (event) => {
-      if (event.source === window && event.data.type === 'INTERCEPTOR_STATUS') {
-        window.removeEventListener('message', handler);
-        sendResponse({ enabled: event.data.enabled });
-      }
-    };
-    window.addEventListener('message', handler);
-    return true;
-  }
-  else if (request.action === "TOGGLE_INTERCEPTOR") {
-    window.postMessage({ type: 'TOGGLE_INTERCEPTOR' }, '*');
-    // 等待主世界返回状态
-    const handler = (event) => {
-      if (event.source === window && event.data.type === 'INTERCEPTOR_STATUS') {
-        window.removeEventListener('message', handler);
-        sendResponse({ enabled: event.data.enabled });
-      }
-    };
-    window.addEventListener('message', handler);
-    return true;
-  }
-  else if (request.action === "TOGGLE_MASK") {
+  if (request.action === "TOGGLE_MASK") {
     toggleMask();
     sendResponse({ ok: true });
   }
@@ -60,7 +29,7 @@ chrome.runtime.onMessage.addListener((request, _sender, sendResponse) => {
       console.log("✅ [完成] 提取了", words?.length || 0, "个单词");
       sendResponse({ data: words });
     } else {
-      console.warn("⚠️ [警告] 尚未截获数据。请：1.打开拦截器 2.开启字幕[CC] 3.刷新页面");
+      console.warn("⚠️ [警告] 尚未截获数据。请开启字幕 [CC] 并刷新页面");
       sendResponse({ data: null });
     }
   }
